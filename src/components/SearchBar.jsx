@@ -6,7 +6,7 @@ function SearchBar() {
   const [inputValue, setInputValue] = useState("");
   const [locations, setLocations] = useState([]);
   const handleSearch = debounce(async (searchText) => {
-    if (searchText.length > 2) {
+    if (searchText.length >= 1) {
       try {
         const response = await fetch(
           `http://HSF002LINUX/Web2/Project/api.php/Hotels?search=${encodeURIComponent(
@@ -35,10 +35,10 @@ function SearchBar() {
   };
 
   // Call handleSearch when user stops typing
-  const debounceSearch = debounce(handleSearch, 300);
+  const debounceSearch = debounce(handleSearch, 200);
 
   return (
-    <div className="field has-addons">
+    <div className="field has-addons search-container">
       <div className="control is-expanded field has-addons is-flex-direction-column">
         <input
           className="input"
