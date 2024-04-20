@@ -1,0 +1,19 @@
+// SearchBar.scss
+.search-bar .control:not(:last-child) {
+  border-radius: 0;
+}
+
+.search-bar .control {
+  margin-right: 4px; // Adjust the space between inputs
+}
+
+.search-bar .input {
+  border-color: transparent;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1); // Example shadow
+}
+
+.search-bar .button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  // Additional styles for the button
+}
