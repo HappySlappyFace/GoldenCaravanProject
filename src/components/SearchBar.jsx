@@ -4,7 +4,7 @@ import "./SearchBar.scss";
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/airbnb.css";
 
-function SearchBar() {
+function SearchBar({ setFetchedRooms }) {
   const [inputValues, setInputValues] = useState({
     city: "",
     checkInDate: "",
@@ -67,7 +67,8 @@ function SearchBar() {
       //   `http://HSF002LINUX/Web2/Project/api.php/Rooms?${queryParams}`
       // );
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
+      setFetchedRooms(data);
       // Handle the fetched room data
     } catch (error) {
       // Handle any errors

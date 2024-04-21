@@ -1,16 +1,15 @@
 // import { useState } from "react";
 import "./App.scss";
 import Navbar from "./components/Navbar";
-import TopSection from "./components/TopSection";
-import SearchBar from "./components/SearchBar";
+
+import Body from "./Body";
 
 function App() {
   return (
     <>
       <div className="is-flex is-flex-direction-column">
         <Navbar />
-        <TopSection />
-        <SearchBar />
+        <Body />
       </div>
     </>
   );
