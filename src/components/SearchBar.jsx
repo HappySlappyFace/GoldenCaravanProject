@@ -1,8 +1,10 @@
 import { useState } from "react";
-import debounce from "../methods.js";
+// import debounce from "../methods.js";
+import { useDebouncedCallback } from "use-debounce";
 import "./SearchBar.scss";
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/airbnb.css";
+import { useEffect } from "react";
 
 function SearchBar({ setFetchedRooms }) {
   const [inputValues, setInputValues] = useState({
@@ -16,11 +18,31 @@ function SearchBar({ setFetchedRooms }) {
   const [dateRange, setDateRange] = useState([new Date(), new Date()]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [searchValue, setSearchValue] = useState(null);
 
   //to fetch the hotel franchise
-  const FetchHotelFranchise = debounce(async (searchText) => {
+  const handleUpdateValues = (value) => {
+    setSearchValue(value);
+    setInputValues((prev) => ({ ...prev, city: value }));
+  };
+
+  const handleUpdateValue = useDebouncedCallback(
+    // function
+    (value) => {
+      handleUpdateValues(value);
+    },
+    // delay in ms
+    300
+  );
+
+  // const handleUpdateValue = (value) =>
+  //   debounce(handleUpdateValues(value), 1000);
+  // console.log(searchValue);
+
+  const FetchHotelFranchise = async (searchText) => {
     if (searchText.length >= 1) {
       try {
+        setIsLoading(true);
         const response = await fetch(
           `http://HSF002LINUX/Web2/Project/api.php/Hotels?search=${encodeURIComponent(
             searchText
@@ -40,7 +62,11 @@ function SearchBar({ setFetchedRooms }) {
         setIsLoading(false);
       }
     }
-  }, 300);
+  };
+
+  useEffect(() => {
+    searchValue && FetchHotelFranchise(searchValue);
+  }, [searchValue]);
 
   //to fetch the hotel rooms
   const fetchRooms = async () => {
@@ -92,7 +118,7 @@ function SearchBar({ setFetchedRooms }) {
   };
 
   // Call FetchHotelFranchise when user stops typing
-  const debounceSearch = debounce(FetchHotelFranchise, 200);
+  // const debounceSearch = debounce(FetchHotelFranchise, 200);
 
   return (
     <div className="field has-addons search-container">
@@ -101,11 +127,12 @@ function SearchBar({ setFetchedRooms }) {
           className="input"
           type="text"
           placeholder="Where to?"
-          value={inputValues.city}
+          defaultValue={inputValues.city}
           onChange={(e) => {
-            setIsLoading(true);
-            setInputValues({ ...inputValues, city: e.target.value });
-            debounceSearch(e.target.value);
+            // setIsLoading(true);
+            // setInputValues((prev) => ({ ...prev, city: e.target.value }));
+            // debounceSearch(e.target.value);
+            handleUpdateValue(e.target.value);
           }}
         />
         {locations.length > 0 && (

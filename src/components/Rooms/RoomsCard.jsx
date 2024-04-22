@@ -10,7 +10,7 @@ function RoomsCard(props) {
           <figure className="image is-4by3">
             {!imageLoaded && <LoadingSpinner />}{" "}
             <img
-              src={props.imageUrle} //troubleshooting the spinner
+              src={props.imageUrl} //troubleshooting the spinner
               alt="Hotel Room"
               onLoad={() => setImageLoaded(true)}
               style={{ display: imageLoaded ? "block" : "none" }}
