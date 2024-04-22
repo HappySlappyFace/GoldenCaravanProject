@@ -1,16 +1,18 @@
-// import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.scss";
-import Navbar from "./components/Navbar";
-
-import Body from "./Body";
+import HomeRoute from "./routes/HomeRoute";
+import AboutRoute from "./routes/AboutRoute";
 
 function App() {
   return (
     <>
-      <div className="is-flex is-flex-direction-column">
-        <Navbar />
-        <Body />
-      </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomeRoute />} />
+          <Route path="/about" element={<AboutRoute />} />
+        </Routes>
+      </Router>
+      <div className="is-flex is-flex-direction-column"></div>
     </>
   );
 }

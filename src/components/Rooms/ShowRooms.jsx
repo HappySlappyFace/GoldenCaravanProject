@@ -6,6 +6,7 @@ function Body({ fetchedRooms }) {
 
   useEffect(() => {
     // This effect will run every time `fetchedRooms` changes.
+
     setDisplayRooms(fetchedRooms);
     console.log(fetchedRooms);
 
