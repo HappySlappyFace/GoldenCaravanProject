@@ -1,10 +1,20 @@
+import { useState } from "react";
+import LoadingSpinner from "./LoadingSpinner";
+
 function RoomsCard(props) {
+  const [imageLoaded, setImageLoaded] = useState(false);
   return (
     <>
       <div className="card">
         <div className="card-image">
           <figure className="image is-4by3">
-            <img src={props.imageUrl} alt="Hotel Room" />
+            {!imageLoaded && <LoadingSpinner />}{" "}
+            <img
+              src={props.imageUrle} //troubleshooting the spinner
+              alt="Hotel Room"
+              onLoad={() => setImageLoaded(true)}
+              style={{ display: imageLoaded ? "block" : "none" }}
+            />
           </figure>
         </div>
         <div className="card-content">
@@ -24,11 +34,11 @@ function RoomsCard(props) {
             </p>
           </div>
         </div>
-        <footer class="card-footer">
-          <a href="#" class="card-footer-item">
+        <footer className="card-footer">
+          <a href="#" className="card-footer-item">
             More details
           </a>
-          <a href="#" class="card-footer-item">
+          <a href="#" className="card-footer-item">
             Book
           </a>
         </footer>

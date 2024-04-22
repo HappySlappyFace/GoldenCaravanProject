@@ -45,6 +45,7 @@ function SearchBar({ setFetchedRooms }) {
   //to fetch the hotel rooms
   const fetchRooms = async () => {
     // console.log(locations);
+    setFetchedRooms(["Fetching"]);
     const formattedStartDate = dateRange[0].toISOString().split("T")[0];
     const formattedEndDate = dateRange[1]
       ? dateRange[1].toISOString().split("T")[0]
