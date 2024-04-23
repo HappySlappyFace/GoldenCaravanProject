@@ -1,8 +1,16 @@
 import { useState } from "react";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinner";
 
 function RoomsCard(props) {
   const [imageLoaded, setImageLoaded] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleBookClick = () => {
+    navigate("/book", { state: { ...props } });
+  };
   return (
     <>
       <div className="card">
@@ -34,13 +42,17 @@ function RoomsCard(props) {
             </p>
           </div>
         </div>
+
         <footer className="card-footer">
-          <a href="#" className="card-footer-item">
+          <Link
+            to={`/roomDetails/${props.idRoom}`}
+            className="card-footer-item"
+          >
             More details
-          </a>
-          <a href="#" className="card-footer-item">
+          </Link>
+          <button onClick={handleBookClick} className="card-footer-item">
             Book
-          </a>
+          </button>
         </footer>
       </div>
     </>

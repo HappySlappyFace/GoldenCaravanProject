@@ -96,7 +96,6 @@ function SearchBar({ setFetchedRooms }) {
       const data = await response.json();
       // console.log(data);
       setFetchedRooms(data);
-      // Handle the fetched room data
     } catch (error) {
       // Handle any errors
     }
