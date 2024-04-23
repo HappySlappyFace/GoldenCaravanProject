@@ -1,28 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
+import RoomDetailsRenderer from "./RoomDetailsRenderer";
+import RoomDetailsSkeleton from "./RoomDetailsSkeleton";
 
 function RoomDetails() {
   let { idRoom } = useParams();
   const [roomDetails, setRoomDetails] = useState(null);
   const [loading, setLoading] = useState(false);
+  const room = useRef(null);
 
   const fetchRoomDetails = async (room) => {
     try {
       const response = await fetch(
-        `http://HSF002LINUX/Web2/Project/api.php/Room?${encodeURIComponent(
+        `http://HSF002LINUX/Web2/Project/api.php/Room?room=${encodeURIComponent(
           room
         )}`
       );
+
       const data = await response.json();
-      // console.log(data);
-      setFetchedRooms(data);
+      // console.log(data[0]);
+      // setRoomDetails(data[0]);
+      return data[0];
     } catch (error) {
       // Handle any errors
     }
   };
   useEffect(() => {
     setLoading(true);
-    // Assume fetchRoomDetails is a function that fetches the room data from an API
+    // console.log(idRoom);
     fetchRoomDetails(idRoom)
       .then((data) => {
         setRoomDetails(data);
@@ -34,6 +39,13 @@ function RoomDetails() {
       });
   }, [idRoom]); // This effect should run when idRoom changes
 
+  useEffect(() => {
+    // console.log(roomDetails);
+    if (roomDetails) {
+      document.title = `${roomDetails.idRoom} - Room Details`;
+    }
+  }, [roomDetails]); // Run this effect when roomDetails changes
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -42,12 +54,15 @@ function RoomDetails() {
     return <div>Room details not found.</div>;
   }
 
-  // Render the room details
+  // Render the roomDetails details
   return (
-    <div>
-      <h1>{roomDetails.name}</h1>
-      {/* Other room details here */}
-    </div>
+    <>
+      {loading ? (
+        <RoomDetailsSkeleton />
+      ) : (
+        <RoomDetailsRenderer roomDetails={roomDetails} />
+      )}
+    </>
   );
 }
 
