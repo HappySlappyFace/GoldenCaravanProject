@@ -1,4 +1,6 @@
 import "./Navbar.scss";
+import { Outlet, Link } from "react-router-dom";
+
 function Navbar() {
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
@@ -22,15 +24,20 @@ function Navbar() {
 
       <div className="navbar-menu">
         <div className="navbar-end">
-          <a className="navbar-item" href="/book-room">
+          <Link className="navbar-item" to="/book-room">
             Book a room
-          </a>
-          <a className="navbar-item" href="/favorites">
+          </Link>
+          <Link className="navbar-item" to="/favorites">
             Favorites
-          </a>
-          <a className="navbar-item" href="/login">
+          </Link>
+
+          <Link className="navbar-item" to="/login">
             Login
-          </a>
+          </Link>
+
+          <Link className="navbar-item" to="/register">
+            Register
+          </Link>
         </div>
       </div>
     </nav>
