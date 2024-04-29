@@ -6,6 +6,7 @@ import RoomDetailsRoute from "./routes/RoomDetailsRoute";
 import BookRoomRoute from "./routes/BookRoomRoute";
 import LoginRoute from "./routes/LoginRoute";
 import RegisterRoute from "./routes/RegisterRoute";
+import ProfileRoute from "./routes/ProfileRoute";
 import Test from "./components/Test";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/book" element={<BookRoomRoute />} />
           <Route path="/login" element={<LoginRoute />} />
           <Route path="/register" element={<RegisterRoute />} />
+          <Route path="/profile" element={<ProfileRoute />} />
           <Route path="/hack" element={<Test />} />
         </Routes>
       </Router>

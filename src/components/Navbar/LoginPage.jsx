@@ -11,7 +11,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Perform fetch request to login endpoint
-    console.log("http://HSF002LINUX/Web2/Project/api.php/login", {
+    console.log("http://localhost/Web2/Project/api.php/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,7 +21,7 @@ const LoginPage = () => {
     });
     try {
       const response = await fetch(
-        "http://HSF002LINUX/Web2/Project/api.php/login",
+        "http://localhost/Web2/Project/api.php/login",
         {
           method: "POST",
           headers: {

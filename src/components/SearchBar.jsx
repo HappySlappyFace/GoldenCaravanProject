@@ -44,12 +44,12 @@ function SearchBar({ setFetchedRooms }) {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `http://HSF002LINUX/Web2/Project/api.php/Hotels?search=${encodeURIComponent(
+          `http://localhost/Web2/Project/api.php/Hotels?search=${encodeURIComponent(
             searchText
           )}`
         );
         // const response = await fetch(
-        //   `http://HSF002LINUX/Web2/Project/api.php/Hotels`
+        //   `http://localhost/Web2/Project/api.php/Hotels`
         // );
         const data = await response.json();
         // console.log(data);
@@ -88,10 +88,10 @@ function SearchBar({ setFetchedRooms }) {
 
     try {
       const response = await fetch(
-        `http://HSF002LINUX/Web2/Project/api.php/Rooms?${queryParams}`
+        `http://localhost/Web2/Project/api.php/Rooms?${queryParams}`
       );
       // console.log(
-      //   `http://HSF002LINUX/Web2/Project/api.php/Rooms?${queryParams}`
+      //   `http://localhost/Web2/Project/api.php/Rooms?${queryParams}`
       // );
       const data = await response.json();
       // console.log(data);

@@ -12,7 +12,7 @@ function RoomDetails() {
   const fetchRoomDetails = async (room) => {
     try {
       const response = await fetch(
-        `http://HSF002LINUX/Web2/Project/api.php/Room?room=${encodeURIComponent(
+        `http://localhost/Web2/Project/api.php/Room?room=${encodeURIComponent(
           room
         )}`
       );
