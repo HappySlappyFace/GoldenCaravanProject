@@ -33,10 +33,13 @@ const LoginPage = () => {
       );
       if (response.ok) {
         // Handle successful login, e.g., navigate to a different page or update the state
+        window.location.href = "/"; // Redirect to login page
       } else {
         // Handle errors, e.g., show an error message
+        console.error("Logout failed:", response.statusText);
       }
     } catch (error) {
+      console.error("Logout failed:", error);
       // Handle network errors
     }
   };
