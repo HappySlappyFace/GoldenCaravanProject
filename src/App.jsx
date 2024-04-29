@@ -6,6 +6,7 @@ import RoomDetailsRoute from "./routes/RoomDetailsRoute";
 import BookRoomRoute from "./routes/BookRoomRoute";
 import LoginRoute from "./routes/LoginRoute";
 import RegisterRoute from "./routes/RegisterRoute";
+import Test from "./components/Test";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/book" element={<BookRoomRoute />} />
           <Route path="/login" element={<LoginRoute />} />
           <Route path="/register" element={<RegisterRoute />} />
+          <Route path="/hack" element={<Test />} />
         </Routes>
       </Router>
       <div className="is-flex is-flex-direction-column"></div>

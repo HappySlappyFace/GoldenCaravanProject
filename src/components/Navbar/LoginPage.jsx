@@ -11,15 +11,26 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Perform fetch request to login endpoint
+    console.log("http://HSF002LINUX/Web2/Project/api.php/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+      credentials: "include", // Necessary to include the cookie with the request
+    });
     try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-        credentials: "include", // Necessary to include the cookie with the request
-      });
+      const response = await fetch(
+        "http://HSF002LINUX/Web2/Project/api.php/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(credentials),
+          credentials: "include", // Necessary to include the cookie with the request
+        }
+      );
       if (response.ok) {
         // Handle successful login, e.g., navigate to a different page or update the state
       } else {
