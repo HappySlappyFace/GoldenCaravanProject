@@ -7,6 +7,7 @@ import BookRoomRoute from "./routes/BookRoomRoute";
 import LoginRoute from "./routes/LoginRoute";
 import RegisterRoute from "./routes/RegisterRoute";
 import ProfileRoute from "./routes/ProfileRoute";
+import ClientReservationsRoute from "./routes/ClientReservationsRoute";
 import Test from "./components/Test";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/login" element={<LoginRoute />} />
           <Route path="/register" element={<RegisterRoute />} />
           <Route path="/profile" element={<ProfileRoute />} />
+          <Route path="/reservations" element={<ClientReservationsRoute />} />
           <Route path="/hack" element={<Test />} />
         </Routes>
       </Router>

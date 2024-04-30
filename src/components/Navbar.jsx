@@ -27,7 +27,8 @@ function Navbar() {
           // );
         }
       } catch (error) {
-        console.error("Failed to fetch user information:", error);
+        // console.error("Failed to fetch user information:", error);
+        // not logged in, no need to do anything ( i hope there's no edge case)
       }
     };
 

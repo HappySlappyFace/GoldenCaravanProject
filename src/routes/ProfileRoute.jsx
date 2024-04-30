@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import Profile from "../components/Profile";
+import Profile from "../components/Navbar/Profile";
 function ProfileRoute() {
   return (
     <>
