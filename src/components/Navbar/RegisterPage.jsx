@@ -16,10 +16,33 @@ const RegisterPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    submitData(userInfo);
     console.log("Register with:", userInfo);
     // Add your logic to handle registration here
   };
-
+  const submitData = async () => {
+    await fetch("http://localhost/Web2/Project/register.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userInfo),
+    })
+      .then((response) => {
+        console.log(response);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        window.location.href = "/login"; // Redirect to login page
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data); // Handle successful response from backend
+      })
+      .catch((error) => {
+        console.error("There was a problem with your fetch operation:", error);
+      });
+  };
   return (
     <section className="section">
       <div className="container">

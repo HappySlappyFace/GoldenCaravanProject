@@ -10,6 +10,8 @@ import ProfileRoute from "./routes/ProfileRoute";
 import ClientReservationsRoute from "./routes/ClientReservationsRoute";
 import Test from "./components/Test";
 
+import AllReservationRoute from "./routes/Admin/AllReservationsRoute";
+
 function App() {
   return (
     <>
@@ -25,6 +27,8 @@ function App() {
           <Route path="/profile" element={<ProfileRoute />} />
           <Route path="/reservations" element={<ClientReservationsRoute />} />
           <Route path="/hack" element={<Test />} />
+
+          <Route path="/admin-panel" element={<AllReservationRoute />} />
         </Routes>
       </Router>
       <div className="is-flex is-flex-direction-column"></div>

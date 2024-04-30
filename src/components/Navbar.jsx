@@ -81,7 +81,7 @@ function Navbar() {
 
           {userType ? (
             <>
-              {userType === "Admin" && (
+              {(userType === "Admin" || userType === "SuperAdmin") && (
                 <Link className="navbar-item" to="/admin-panel">
                   Admin Panel
                 </Link>

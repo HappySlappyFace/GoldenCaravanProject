@@ -36,27 +36,29 @@ const BookRoom = () => {
     //   startDate: roomDetails.startDate,
     //   endDate: roomDetails.endDate,
     // };
-    const requestBody = {
-      roomId: "01TN010", // Replace with your hardcoded room ID
-      startDate: "2024-05-01", // Replace with your hardcoded start date
-      endDate: "2024-05-07", // Replace with your hardcoded end date
-    };
+    const formData = new FormData();
+    formData.append("roomId", roomDetails.idRoom); // Replace with your hardcoded room ID
+    formData.append("startDate", "2024-05-01"); // Replace with your hardcoded start date
+    formData.append("endDate", "2024-05-07");
     try {
-      console.log(requestBody);
+      // console.log(requestBody);
       const response = await fetch(
         `http://localhost/Web2/Project/booking.php`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
+          // headers: {
+          //   "Content-Type": "application/json",
+          // },
+          body: formData,
           credentials: "include",
         }
       );
-
+      if (response.status === 403) {
+        navigate("/login");
+        return;
+      }
       if (response.ok) {
-        navigate("/listeReservation"); // Navigate to the reservation list on success
+        navigate("/reservations"); // Navigate to the reservation list on success
       } else {
         throw new Error("Failed to create booking");
       }
