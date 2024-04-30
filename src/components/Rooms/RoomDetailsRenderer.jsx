@@ -32,7 +32,10 @@ function RoomDetailsRenderer(props) {
 
       {/* Booking Button */}
       <footer className="card-footer">
-        <a href="#" className="card-footer-item button is-primary">
+        <a
+          href={"/book/" + props.roomDetails.idRoom}
+          className="card-footer-item button is-primary"
+        >
           Book Now
         </a>
       </footer>

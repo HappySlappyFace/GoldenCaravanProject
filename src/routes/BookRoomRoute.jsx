@@ -5,7 +5,7 @@ function BookRoomRoute() {
   return (
     <>
       <Navbar />
-      <RoomDetails />
+      <BookRoom />
     </>
   );
 }

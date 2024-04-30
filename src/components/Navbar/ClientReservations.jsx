@@ -31,7 +31,6 @@ function ClientReservations() {
         if (response.ok) {
           const data = await response.json();
           if (data.status === "success") {
-            console.log(data);
             return data.data;
           } else {
             console.error(data.message);
@@ -52,7 +51,13 @@ function ClientReservations() {
       </div>
     );
   }
-
+  const calculateDays = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const difference = end - start; // This will give difference in milliseconds
+    const days = Math.ceil(difference / (1000 * 3600 * 24)); // Convert to days
+    return days;
+  };
   return (
     <div className="columns" style={{ height: "100vh", margin: "0" }}>
       <aside
@@ -81,9 +86,11 @@ function ClientReservations() {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Date</th>
+                <th>Start Date</th>
+                <th>End Date</th>
                 <th>Hotel</th>
                 <th>Status</th>
+                <th>Price</th>
               </tr>
             </thead>
             <tbody>
@@ -91,8 +98,14 @@ function ClientReservations() {
                 <tr key={reservation.id}>
                   <td>{reservation.idBooking}</td>
                   <td>{reservation.startDate}</td>
+                  <td>{reservation.endDate}</td>
                   <td>{reservation.hotelName}</td>
                   <td>{reservation.status}</td>
+                  <td>
+                    {reservation.price} (
+                    {calculateDays(reservation.startDate, reservation.endDate)}{" "}
+                    days)
+                  </td>
                 </tr>
               ))}
             </tbody>

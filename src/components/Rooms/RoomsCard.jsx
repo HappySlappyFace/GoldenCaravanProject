@@ -9,7 +9,7 @@ function RoomsCard(props) {
   const navigate = useNavigate();
 
   const handleBookClick = () => {
-    navigate("/book", { state: { ...props } });
+    navigate(`/book/${props.idRoom}`, { state: { ...props } });
   };
   return (
     <>
@@ -50,9 +50,9 @@ function RoomsCard(props) {
           >
             More details
           </Link>
-          <button onClick={handleBookClick} className="card-footer-item">
+          <Link to={`/book/${props.idRoom}`} className="card-footer-item">
             Book
-          </button>
+          </Link>
         </footer>
       </div>
     </>
