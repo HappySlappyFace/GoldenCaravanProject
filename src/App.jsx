@@ -11,6 +11,7 @@ import ClientReservationsRoute from "./routes/ClientReservationsRoute";
 import Test from "./components/Test";
 
 import AllReservationRoute from "./routes/Admin/AllReservationsRoute";
+import ManageRoomsRoute from "./routes/Admin/ManageRoomsRoute";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/hack" element={<Test />} />
 
           <Route path="/admin-panel" element={<AllReservationRoute />} />
+          <Route path="/admin-manage-rooms" element={<ManageRoomsRoute />} />
         </Routes>
       </Router>
       <div className="is-flex is-flex-direction-column"></div>
