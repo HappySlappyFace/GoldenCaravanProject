@@ -4,6 +4,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 const BookRoom = () => {
   const { idRoom } = useParams();
   const navigate = useNavigate();
+  const [totalPrice, setTotalPrice] = useState(0);
   const [roomDetails, setRoomDetails] = useState({
     roomType: "",
     price: 0,
@@ -28,7 +29,16 @@ const BookRoom = () => {
       })
       .catch((error) => console.error("Error fetching room details:", error));
   }, [idRoom]);
+  const savedDate = JSON.parse(localStorage.getItem("bookingDate"));
+  const startDate = new Date(savedDate[0]);
+  const endDate = new Date(savedDate[1]);
 
+  // Calculate the difference in time, then convert that into days
+  const timeDiff = endDate.getTime() - startDate.getTime();
+  const days = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
+  // console.log(days);
+
+  // console.log(savedDate);
   const handleBook = async () => {
     // POST request to backend to book the room
     // const requestBody = {
@@ -37,8 +47,7 @@ const BookRoom = () => {
     //   endDate: roomDetails.endDate,
     // };
     const formData = new FormData();
-    const savedDate = JSON.parse(localStorage.getItem("bookingDate"));
-    console.log(savedDate);
+
     formData.append("roomId", idRoom); // Replace with your hardcoded room ID
     formData.append("startDate", savedDate[0]); // Replace with your hardcoded start date
     formData.append("endDate", savedDate[1]);
@@ -104,7 +113,7 @@ const BookRoom = () => {
           </div>
 
           <div className="content">
-            Reservation Price: <strong>${roomDetails.price}</strong>
+            Reservation Price: <strong>${roomDetails.price * days}</strong>
             <br />
             <button className="button is-primary" onClick={handleBook}>
               Book now

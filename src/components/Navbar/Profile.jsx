@@ -63,7 +63,7 @@ function Profile() {
       throw new Error("Failed to upload image");
     }
 
-    return response.json(); // Assuming the server responds with JSON containing the URL
+    return response.json();
   };
 
   const handleImageUpload = (event) => {
