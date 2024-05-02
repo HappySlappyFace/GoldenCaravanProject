@@ -37,11 +37,21 @@ const BookRoom = () => {
     //   endDate: roomDetails.endDate,
     // };
     const formData = new FormData();
-    formData.append("roomId", roomDetails.idRoom); // Replace with your hardcoded room ID
-    formData.append("startDate", "2024-05-01"); // Replace with your hardcoded start date
-    formData.append("endDate", "2024-05-07");
+    const savedDate = JSON.parse(localStorage.getItem("bookingDate"));
+    console.log(savedDate);
+    formData.append("roomId", idRoom); // Replace with your hardcoded room ID
+    formData.append("startDate", savedDate[0]); // Replace with your hardcoded start date
+    formData.append("endDate", savedDate[1]);
     try {
       // console.log(requestBody);
+      // console.log(`http://localhost/Web2/Project/booking.php`, {
+      //   method: "POST",
+      //   // headers: {
+      //   //   "Content-Type": "application/json",
+      //   // },
+      //   body: formData,
+      //   credentials: "include",
+      // });
       const response = await fetch(
         `http://localhost/Web2/Project/booking.php`,
         {

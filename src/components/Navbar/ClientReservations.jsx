@@ -56,7 +56,7 @@ function ClientReservations() {
     const end = new Date(endDate);
     const difference = end - start; // This will give difference in milliseconds
     const days = Math.ceil(difference / (1000 * 3600 * 24)); // Convert to days
-    return days;
+    return days + 1;
   };
   return (
     <div className="columns" style={{ height: "100vh", margin: "0" }}>
@@ -86,6 +86,7 @@ function ClientReservations() {
             <thead>
               <tr>
                 <th>ID</th>
+                <th>Room</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Hotel</th>
@@ -95,12 +96,19 @@ function ClientReservations() {
             </thead>
             <tbody>
               {reservations.map((reservation) => (
-                <tr key={reservation.id}>
+                <tr key={reservation.idBooking}>
                   <td>{reservation.idBooking}</td>
+                  <td>{reservation.idRoom}</td>
                   <td>{reservation.startDate}</td>
                   <td>{reservation.endDate}</td>
                   <td>{reservation.hotelName}</td>
-                  <td>{reservation.status}</td>
+                  <td>
+                    {reservation.status == "0"
+                      ? "Pending"
+                      : reservation.status == "1"
+                      ? "Validated"
+                      : "Finished"}
+                  </td>
                   <td>
                     {reservation.price} (
                     {calculateDays(reservation.startDate, reservation.endDate)}{" "}

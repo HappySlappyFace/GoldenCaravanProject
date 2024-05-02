@@ -19,16 +19,16 @@ function AllReservation() {
             credentials: "include",
           }
         );
-        // if (response.status === 403) {
-        //   navigate("/");
-        //   return;
-        // }
+        if (response.status === 403) {
+          navigate("/");
+          return;
+        }
         if (!response.ok) {
           throw new Error("Failed to fetch reservations");
         }
 
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setReservations(data);
         setLoading(false);
       } catch (error) {
@@ -40,6 +40,35 @@ function AllReservation() {
 
     fetchReservations();
   }, []);
+
+  const handleUpdateStatus = async (reservation) => {
+    const today = new Date();
+    const endDate = new Date(reservation.endDate);
+    let url = "";
+    if (reservation.status == 0) {
+      url = `http://localhost/Web2/Project/admin/manageReservation.php/validateReservation/${reservation.idBooking}`;
+    } else if (reservation.status == 1 && endDate < today) {
+      url = `http://localhost/Web2/Project/admin/manageReservation.php/finishReservation/${reservation.idBooking}`;
+    }
+    if (url) {
+      let newStatus = parseInt(reservation.status) + 1;
+      const response = await fetch(url, { method: "PUT" });
+      const data = await response.json();
+      if (data.success) {
+        // Refresh the list or modify the state to reflect the change
+        console.log("Status updated successfully!");
+        const updatedReservations = reservations.map((r) => {
+          if (r.idBooking === reservation.idBooking) {
+            return { ...r, status: newStatus }; // Update the status of the matching reservation
+          }
+          return r;
+        });
+        setReservations(updatedReservations);
+      } else {
+        console.error("Failed to update status");
+      }
+    }
+  };
 
   return (
     <div className="container">
@@ -57,8 +86,9 @@ function AllReservation() {
               <th>Room ID</th>
               <th>Start Date</th>
               <th>End Date</th>
-              <th>Status</th>
+              {/* <th>Status</th> */}
               <th>Price</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -69,8 +99,38 @@ function AllReservation() {
                 <td>{reservation.idRoom}</td>
                 <td>{reservation.startDate}</td>
                 <td>{reservation.endDate}</td>
-                <td>{reservation.status}</td>
+                {/* <td>{reservation.status}</td> */}
                 <td>{reservation.price}</td>
+                <td>
+                  {reservation.status == "0" && (
+                    <button
+                      className="button is-warning"
+                      onClick={() => handleUpdateStatus(reservation)}
+                    >
+                      Validate
+                    </button>
+                  )}
+                  {reservation.status == "1" &&
+                    new Date(reservation.endDate) > new Date() && (
+                      <button disabled className="button is-info">
+                        Ongoing
+                      </button>
+                    )}
+                  {reservation.status == "1" &&
+                    new Date(reservation.endDate) < new Date() && (
+                      <button
+                        className="button is-danger"
+                        onClick={() => handleUpdateStatus(reservation)}
+                      >
+                        Finish
+                      </button>
+                    )}
+                  {reservation.status == "2" && (
+                    <button disabled className="button is-success">
+                      Done
+                    </button>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>

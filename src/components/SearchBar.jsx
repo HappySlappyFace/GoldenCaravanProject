@@ -78,6 +78,12 @@ function SearchBar({ setFetchedRooms }) {
       : "";
 
     // If we have a selectedLocation, use its city attribute; otherwise, use an empty string or a default value
+
+    localStorage.setItem(
+      "bookingDate",
+      JSON.stringify([formattedStartDate, formattedEndDate])
+    );
+
     const queryParams = new URLSearchParams({
       city: selectedLocation.city,
       checkInDate: formattedStartDate,

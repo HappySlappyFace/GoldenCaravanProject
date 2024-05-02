@@ -50,28 +50,36 @@ function Profile() {
     updateUserInfo();
   }, []);
 
+  const uploadImage = async (file) => {
+    const formData = new FormData();
+    formData.append("profilePicture", file);
+
+    const response = await fetch("http://localhost/Web2/Project/upload.php", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to upload image");
+    }
+
+    return response.json(); // Assuming the server responds with JSON containing the URL
+  };
+
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
       setLoading(true);
-      // Simulate API call to upload the image
-      uploadImage(file).then((url) => {
-        setUser((prev) => ({ ...prev, imageUrl: url }));
-        setLoading(false);
-      });
+      uploadImage(file)
+        .then((data) => {
+          setUser((prev) => ({ ...prev, imageUrl: data.url }));
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          setLoading(false);
+        });
     }
-  };
-
-  const uploadImage = async (file) => {
-    // Simulate a file upload to an API and return a URL
-    const formData = new FormData();
-    formData.append("file", file);
-    // Normally, you would make an API request here
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve("https://via.placeholder.com/150"); // Placeholder for the new image URL
-      }, 1000);
-    });
   };
 
   return (
