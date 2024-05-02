@@ -72,12 +72,12 @@ function Navbar() {
 
       <div className="navbar-menu">
         <div className="navbar-end">
-          <Link className="navbar-item" to="/book-room">
+          {/* <Link className="navbar-item" to="/book-room">
             Book a room
           </Link>
           <Link className="navbar-item" to="/favorites">
             Favorites
-          </Link>
+          </Link> */}
 
           {userType ? (
             <>

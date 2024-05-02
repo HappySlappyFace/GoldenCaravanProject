@@ -7,6 +7,7 @@ const RoomsPage = () => {
   const [rooms, setRooms] = useState([]);
   const [isModalActive, setIsModalActive] = useState(false);
   const [activeRoom, setActiveRoom] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleEdit = (room) => {
     setActiveRoom(room);
@@ -99,12 +100,29 @@ const RoomsPage = () => {
           </li>
         </ul>
       </aside>
+
       <div className="column is-10">
-        <button className="button is-primary" onClick={handleNewRoom}>
-          Add New Room
-        </button>
+        <div className="field has-addons">
+          <p className="control">
+            <button className="button is-primary" onClick={handleNewRoom}>
+              Add New Room
+            </button>
+          </p>
+          <p className="control">
+            <input
+              className="input"
+              type="text"
+              placeholder="Search by ID"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </p>
+        </div>
+
         <RoomList
-          rooms={rooms}
+          rooms={rooms.filter((room) =>
+            room.idRoom.toLowerCase().includes(searchTerm.toLowerCase())
+          )}
           setRooms={setRooms}
           onEdit={handleEdit}
           onDelete={handleDelete}

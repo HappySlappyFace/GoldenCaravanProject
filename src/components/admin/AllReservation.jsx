@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 function AllReservation() {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -96,6 +98,18 @@ function AllReservation() {
       </aside>
 
       <div className="column is-10">
+        <div className="field">
+          <div className="control">
+            <input
+              className="input"
+              type="text"
+              placeholder="Search by Client ID"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
+
         <h2 className="title">Reservation List</h2>
         {loading ? (
           <progress className="progress is-small is-primary" max="100">
@@ -116,47 +130,56 @@ function AllReservation() {
               </tr>
             </thead>
             <tbody>
-              {reservations.map((reservation) => (
-                <tr key={reservation.idBooking}>
-                  <td>{reservation.idBooking}</td>
-                  <td>{reservation.idClient}</td>
-                  <td>{reservation.idRoom}</td>
-                  <td>{reservation.startDate}</td>
-                  <td>{reservation.endDate}</td>
-                  {/* <td>{reservation.status}</td> */}
-                  <td>{reservation.price}</td>
-                  <td>
-                    {reservation.status == "0" && (
-                      <button
-                        className="button is-warning"
-                        onClick={() => handleUpdateStatus(reservation)}
-                      >
-                        Validate
-                      </button>
-                    )}
-                    {reservation.status == "1" &&
-                      new Date(reservation.endDate) > new Date() && (
-                        <button disabled className="button is-info">
-                          Ongoing
-                        </button>
-                      )}
-                    {reservation.status == "1" &&
-                      new Date(reservation.endDate) < new Date() && (
+              {reservations
+                .filter(
+                  (reservation) =>
+                    reservation.idClient &&
+                    reservation.idClient
+                      .toString()
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase())
+                )
+                .map((reservation) => (
+                  <tr key={reservation.idBooking}>
+                    <td>{reservation.idBooking}</td>
+                    <td>{reservation.idClient}</td>
+                    <td>{reservation.idRoom}</td>
+                    <td>{reservation.startDate}</td>
+                    <td>{reservation.endDate}</td>
+                    {/* <td>{reservation.status}</td> */}
+                    <td>{reservation.price}</td>
+                    <td>
+                      {reservation.status == "0" && (
                         <button
-                          className="button is-danger"
+                          className="button is-warning"
                           onClick={() => handleUpdateStatus(reservation)}
                         >
-                          Finish
+                          Validate
                         </button>
                       )}
-                    {reservation.status == "2" && (
-                      <button disabled className="button is-success">
-                        Done
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              ))}
+                      {reservation.status == "1" &&
+                        new Date(reservation.endDate) > new Date() && (
+                          <button disabled className="button is-info">
+                            Ongoing
+                          </button>
+                        )}
+                      {reservation.status == "1" &&
+                        new Date(reservation.endDate) < new Date() && (
+                          <button
+                            className="button is-danger"
+                            onClick={() => handleUpdateStatus(reservation)}
+                          >
+                            Finish
+                          </button>
+                        )}
+                      {reservation.status == "2" && (
+                        <button disabled className="button is-success">
+                          Done
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         )}
