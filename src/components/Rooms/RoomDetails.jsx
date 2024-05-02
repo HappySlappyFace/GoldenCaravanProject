@@ -37,14 +37,14 @@ function RoomDetails() {
         console.error("Error fetching room details:", error);
         setLoading(false);
       });
-  }, [idRoom]); // This effect should run when idRoom changes
+  }, [idRoom]);
 
   useEffect(() => {
     // console.log(roomDetails);
     if (roomDetails) {
       document.title = `${roomDetails.idRoom} - Room Details`;
     }
-  }, [roomDetails]); // Run this effect when roomDetails changes
+  }, [roomDetails]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -54,7 +54,6 @@ function RoomDetails() {
     return <div>Room details not found.</div>;
   }
 
-  // Render the roomDetails details
   return (
     <>
       {loading ? (

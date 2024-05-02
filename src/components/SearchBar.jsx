@@ -26,14 +26,9 @@ function SearchBar({ setFetchedRooms }) {
     setInputValues((prev) => ({ ...prev, city: value }));
   };
 
-  const handleUpdateValue = useDebouncedCallback(
-    // function
-    (value) => {
-      handleUpdateValues(value);
-    },
-    // delay in ms
-    300
-  );
+  const handleUpdateValue = useDebouncedCallback((value) => {
+    handleUpdateValues(value);
+  }, 300);
 
   // const handleUpdateValue = (value) =>
   //   debounce(handleUpdateValues(value), 1000);
@@ -77,8 +72,6 @@ function SearchBar({ setFetchedRooms }) {
       ? dateRange[1].toISOString().split("T")[0]
       : "";
 
-    // If we have a selectedLocation, use its city attribute; otherwise, use an empty string or a default value
-
     localStorage.setItem(
       "bookingDate",
       JSON.stringify([formattedStartDate, formattedEndDate])
@@ -102,9 +95,7 @@ function SearchBar({ setFetchedRooms }) {
       const data = await response.json();
       // console.log(data);
       setFetchedRooms(data);
-    } catch (error) {
-      // Handle any errors
-    }
+    } catch (error) {}
   };
 
   //to update the date range in the Location field
@@ -112,7 +103,7 @@ function SearchBar({ setFetchedRooms }) {
     const location = locations.find((loc) => loc.name === locationName);
     if (location) {
       setInputValues({ ...inputValues, city: locationName });
-      setSelectedLocation(location); // Save the full location object
+      setSelectedLocation(location);
     }
     setLocations([]);
   };

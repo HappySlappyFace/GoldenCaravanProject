@@ -11,7 +11,6 @@ const RoomForm = ({ roomDetails, onSubmit }) => {
   });
 
   useEffect(() => {
-    // If roomDetails changes, update room state
     if (roomDetails) {
       setRoom(roomDetails);
     }

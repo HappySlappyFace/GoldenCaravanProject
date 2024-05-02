@@ -14,7 +14,6 @@ function Test() {
         setFetchedRooms(data);
       } catch (error) {
         console.log("error" + i);
-        // Handle any errors
       }
     }
   };

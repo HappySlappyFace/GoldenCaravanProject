@@ -32,24 +32,16 @@ const BookRoom = () => {
   const savedDate = JSON.parse(localStorage.getItem("bookingDate"));
   const startDate = new Date(savedDate[0]);
   const endDate = new Date(savedDate[1]);
-
-  // Calculate the difference in time, then convert that into days
   const timeDiff = endDate.getTime() - startDate.getTime();
   const days = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
   // console.log(days);
 
   // console.log(savedDate);
   const handleBook = async () => {
-    // POST request to backend to book the room
-    // const requestBody = {
-    //   roomId: roomDetails.idRoom,
-    //   startDate: roomDetails.startDate,
-    //   endDate: roomDetails.endDate,
-    // };
     const formData = new FormData();
 
-    formData.append("roomId", idRoom); // Replace with your hardcoded room ID
-    formData.append("startDate", savedDate[0]); // Replace with your hardcoded start date
+    formData.append("roomId", idRoom);
+    formData.append("startDate", savedDate[0]);
     formData.append("endDate", savedDate[1]);
     try {
       // console.log(requestBody);
@@ -77,7 +69,7 @@ const BookRoom = () => {
         return;
       }
       if (response.ok) {
-        navigate("/reservations"); // Navigate to the reservation list on success
+        navigate("/reservations");
       } else {
         throw new Error("Failed to create booking");
       }
@@ -87,7 +79,7 @@ const BookRoom = () => {
   };
 
   const handleCancel = () => {
-    navigate("/"); // Navigate to the homepage
+    navigate("/");
   };
   return (
     <div className="container">

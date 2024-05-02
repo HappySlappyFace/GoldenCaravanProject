@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import RoomsCard from "./RoomsCard";
-import SkeletonCard from "./SkeletonCard"; // You need to create this component
+import SkeletonCard from "./SkeletonCard";
 
 function Body({ fetchedRooms }) {
   const [displayRooms, setDisplayRooms] = useState([]);
@@ -8,16 +8,13 @@ function Body({ fetchedRooms }) {
 
   useEffect(() => {
     if (fetchedRooms[0] == "Fetching") {
-      // Trigger loading state
       setIsLoading(true);
     } else {
-      // Data has been fetched, update displayRooms and turn off loading state
       setDisplayRooms(fetchedRooms);
       setIsLoading(false);
     }
   }, [fetchedRooms]);
 
-  // Define how many skeleton cards you want to display
   const skeletonCardsCount = 8;
   const skeletonCards = [...Array(skeletonCardsCount)].map((_, index) => (
     <div
@@ -32,14 +29,14 @@ function Body({ fetchedRooms }) {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "100%", // Make sure this covers the height of the card-image container
+    height: "100%",
   };
   return (
     <div className="container">
       <h1 className="title">Rooms</h1>
       <div className="columns is-multiline">
         {isLoading
-          ? skeletonCards // Render skeleton cards while loading
+          ? skeletonCards
           : displayRooms.map((room) => (
               <div
                 key={room.idRoom}

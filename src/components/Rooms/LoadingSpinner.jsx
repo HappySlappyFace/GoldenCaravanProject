@@ -1,15 +1,14 @@
 function LoadingSpinner() {
-  // Custom CSS for the spinner and its wrapper
   const spinnerWrapperStyles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "100%", // Make sure this covers the height of the card-image container
+    height: "100%",
   };
 
   const spinnerStyles = {
-    width: "3rem", // Size of the spinner
-    height: "3rem", // Size of the spinner
+    width: "3rem",
+    height: "3rem",
   };
 
   function LoadingSpinner() {

@@ -10,14 +10,14 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Perform fetch request to login endpoint
+
     console.log("http://localhost/Web2/Project/api.php/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(credentials),
-      credentials: "include", // Necessary to include the cookie with the request
+      credentials: "include",
     });
     try {
       const response = await fetch(
@@ -28,19 +28,16 @@ const LoginPage = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(credentials),
-          credentials: "include", // Necessary to include the cookie with the request
+          credentials: "include",
         }
       );
       if (response.ok) {
-        // Handle successful login, e.g., navigate to a different page or update the state
-        window.location.href = "/"; // Redirect to login page
+        window.location.href = "/";
       } else {
-        // Handle errors, e.g., show an error message
         console.error("Logout failed:", response.statusText);
       }
     } catch (error) {
       console.error("Logout failed:", error);
-      // Handle network errors
     }
   };
 
